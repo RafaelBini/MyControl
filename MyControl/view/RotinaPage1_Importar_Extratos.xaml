@@ -1,0 +1,37 @@
+﻿<Page x:Class="MyControl.view.RotinaPage1_Importar_Extratos"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyControl.view"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RotinaPage1_Importar_Extratos">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="32*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="203*"/>
+            <ColumnDefinition Width="197*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid ColumnWidth="*" x:Name="dgImportacoes" ItemsSource="{Binding}" Grid.Column="1" Margin="62,42,48,77" Grid.RowSpan="2" SelectionMode="Single" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionChanged="DgImportacoes_SelectionChanged" IsReadOnly="True"/>
+        <Button x:Name="btnProximo" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,16,10" VerticalAlignment="Bottom" Width="75" Height="48" Foreground="#DDFFFFFF" IsEnabled="False" Grid.Row="1" Click="BtnProximo_Click">
+            <md:PackIcon Kind="ArrowRightThick" Height="38" Width="41" />
+        </Button>
+        <ComboBox x:Name="cbBcoId" Padding="0,0,0,0" HorizontalContentAlignment="Center" FontSize="20" VerticalContentAlignment="Center" Margin="0,0,0,0" Height="38" HorizontalAlignment="Center" Width="182" VerticalAlignment="Bottom" DropDownClosed="CbBcoId_DropDownClosed"/>
+        <Button Name="btnImportarExtrato" ToolTip="Importar Extrato" Padding="0,0,0,0" Margin="109,20,109,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="188" Width="188" Grid.Row="1" Click="BtnImportarExtrato_Click" >
+            <Image Name="imgBtn" Margin="0,0,0,0" />
+        </Button>
+        <CheckBox Name="ckConfere" Content="Saldos de acordo com os bancos" Grid.Column="1" HorizontalAlignment="Left" Margin="62,0,0,10" VerticalAlignment="Bottom" Width="236" Height="48" VerticalContentAlignment="Top" Grid.Row="1" Click="CkConfere_Click" />
+        <Button HorizontalAlignment="Left" Name="btnVoltar" Padding="0,0,0,0" Margin="10,10,0,0" VerticalAlignment="Top" Width="41" Height="33" Background="{x:Null}" BorderBrush="{x:Null}" Click="BtnVoltar_Click">
+            <md:PackIcon Kind="ArrowBack" Height="30" Width="32"/>
+        </Button>
+        <Label Content="Importar Extratos" Padding="3,0,0,0" HorizontalAlignment="Left" Margin="81,13,0,0" VerticalAlignment="Top" Width="183" Height="30" FontSize="24" FontFamily="Calibri"/>
+        <Label x:Name="lbAnoMes" Content="mes" Padding="3,0,0,0" HorizontalAlignment="Left" Margin="284,13,0,0" VerticalAlignment="Top" Width="108" Height="30" FontSize="24" FontFamily="Calibri"/>
+
+    </Grid>
+</Page>

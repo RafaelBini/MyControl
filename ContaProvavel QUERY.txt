@@ -1,0 +1,6 @@
+select conta, count(*) from transacao
+where (UPPER(descricaobco2) like UPPER('%Passagens%') or  UPPER(descricaobco2) like UPPER('%Onibus%'))
+or (UPPER(descricaobco1) like UPPER('%Passagens%') or UPPER(descricaobco1) like UPPER('%Onibus%'))
+or (UPPER(descricao) like UPPER('%Passagens%') or UPPER(descricao) like UPPER('%Onibus%'))
+group by conta
+order by 2 desc
