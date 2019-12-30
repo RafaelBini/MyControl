@@ -14,33 +14,34 @@ namespace MyControl.dao
 {
     class RotinaDAO
     {
-        public string anoMes;
-
-        public RotinaDAO()
-        {
-            anoMes = getAnoMes();
-        }
 
         public static DataTable getRotinasView()
         {
             return SqlTool.Consultar("select mes, entrou, saiu, saldo from rotinas_view");
         }
 
+
         public static DataView getBancosImportados()
         {
-            return SqlTool.Consultar("select (select (CASE WHEN bco is null THEN 'NÃO' ELSE 'SIM' END) from transacao_temp where bco = bco_id limit 1) as importado, bco_id, (select (CASE WHEN sum(valor) is null THEN 0 ELSE sum(valor) END) + sum(saldo) from transacao_temp where bco=bco_id) as saldo " +
-                                    "from saldo_bco_view " +
-                                    "group by bco_id " +
-                                    "order by bco_id").DefaultView;
+            return SqlTool.Consultar("select (select (CASE WHEN bco is null THEN 'NÃO' ELSE 'SIM' END) from transacao_temp where bco = bco_id limit 1) as importado, bco_id, saldo " +
+                "from saldo_bco_preview_view " +
+                "order by saldo desc").DefaultView;
+        }
+
+        internal static IEnumerable getSaldoBancos()
+        {
+            return SqlTool.Consultar("select bco_id, saldo " +
+                                    "from saldo_bco_preview_view " +
+                                    "order by saldo desc").DefaultView;
         }
 
         public static string getCreditosTotal()
         {
-            string q = "select sum(valor) from transacao_temp where tipo='C' and codconta is null";
+            string q = "select (select sum(valor) from transacao_temp where tipo='C' and codconta is null) - coalesce((select sum(valor) from transacao_temp where tipo='C' and codconta is not null), 0)";
             return SqlTool.Consultar(q).Rows[0][0].ToString();
         }
 
-        public static DataView getCreditosDistribuir()
+        public static DataTable getCreditosDistribuir()
         {
             string q = "select nome, V.valor " +
             "from conta C " +
@@ -52,17 +53,42 @@ namespace MyControl.dao
             "on MD.codconta = T.codconta " +*/
             "left join(select codconta, sum(valor) as valor from transacao_temp where tipo = 'C' group by codconta) as V " +
             "on V.codconta = C.codconta " +
+            "where C.ativo = 'true' " +
             "group by nome, V.valor, C.prioridade " +
             "order by C.prioridade desc";
 
-            return SqlTool.Consultar(q).DefaultView;
+            return SqlTool.Consultar(q);
+        }
+
+        internal static void deleteTransacaoTemp()
+        {
+            string q = "DELETE FROM transacao_temp ";
+            SqlTool.Executar(q);
+        }
+
+        internal static void insertTransacoesReais()
+        {
+            string q = "INSERT INTO transacao " +
+                        "SELECT * FROM transacao_temp " +
+                        "WHERE codconta IS NOT NULL; ";
+            SqlTool.Executar(q);
+
+        }
+
+        internal static void insertCreditosReais()
+        {
+            string q = "INSERT INTO credito (descricao,valor,datarec,distribuido,bco) " +
+                        "SELECT descricaobco2,valor,datapgto,'true',bco FROM transacao_temp " +
+                        "WHERE tipo='C' AND codconta IS NULL";
+            SqlTool.Executar(q);
         }
 
         public static string getSaldoConta(string conta)
         {
             try
             {
-                return SqlTool.Consultar("select ( (select case when sum(valor) is null then 0.0 else sum(valor) end from transacao_temp where conta='"+conta+ "') + (select sum(valor) from transacao where conta='" + conta + "') )").Rows[0][0].ToString();
+                string q = "select sum(valor) from transacao_preview where codconta = (select codconta from conta where nome='"+conta+"')";
+                return SqlTool.Consultar(q).Rows[0][0].ToString() == "" ? "0.0" : SqlTool.Consultar(q).Rows[0][0].ToString();
             }
             catch
             {
@@ -82,6 +108,19 @@ namespace MyControl.dao
             }
         }
 
+        internal static void insertCredito(string conta, string valor)
+        {
+            string q = "insert into transacao_temp (descricao, codconta, valor, datapgto, tipo, adddatetime, metodoentrada, conta) VALUES " +
+            "('Distribuição MyControl', (select codconta from conta where nome ='" + conta + "'), '" + valor.Replace(",", ".") + "', '" + DateTime.Today.ToString("dd/MM/yyyy") + "', 'C', '" + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "', 'Distrib MyC', '" + conta + "');";
+            SqlTool.Executar(q);
+        }
+
+        internal static void deleteCredito(string conta, string valor)
+        {
+            string q = "delete from transacao_temp where tipo = 'C' and codconta = (select codconta from conta where nome = '"+ conta + "')";
+            SqlTool.Executar(q);
+        }
+
         public static bool isContaDeBoa(string conta)
         {
             try
@@ -92,7 +131,7 @@ namespace MyControl.dao
                 // Recebe o saldo
                 double saldo = Convert.ToDouble(getSaldoConta(conta));
                                 
-                return (saldo > Math.Abs(media_deb));
+                return (saldo >= Math.Abs(media_deb));
             }
             catch
             {
@@ -104,7 +143,8 @@ namespace MyControl.dao
         {
             try
             {
-                return SqlTool.Consultar("select round(avg(valor),2) as media_debitos from(select codconta, to_char(datapgto, 'yyyy/MM'), sum(valor) as valor from transacao where tipo = 'D' group by codconta, to_char(datapgto, 'yyyy/MM')) as soma_mes_conta where codconta = (select codconta from conta where nome='" + conta + "') group by codconta").Rows[0][0].ToString();
+                string q = "select round(avg(valor),2) as media_debitos from(select codconta, to_char(datapgto, 'yyyy/MM'), sum(valor) as valor from transacao where tipo = 'D' group by codconta, to_char(datapgto, 'yyyy/MM')) as soma_mes_conta where codconta = (select codconta from conta where nome='" + conta + "') group by codconta";
+                return Math.Abs(Convert.ToDouble(SqlTool.Consultar(q).Rows[0][0])).ToString() == "" ? "0.0" : Math.Abs(Convert.ToDouble(SqlTool.Consultar(q).Rows[0][0])).ToString();
             }
             catch
             {
@@ -112,12 +152,21 @@ namespace MyControl.dao
             }
         }
 
-        public DataView getSaldoDebitoContas()
+        public static DataView getSaldoDebitoContas()
         {
             string q = "select S.nome as conta, S.valor as saldo, D.debitos " +
             "from saldo_contas_view S left " +
             "join total_debito_contas_view D on D.nome = S.nome " +
-            "where D.mespgto = '"+ anoMes + "'  or D.mespgto is null order by 1";
+            "where (D.mespgto = '"+ getAnoMes() + "'  or D.mespgto is null) " +
+            "order by 1";
+
+            return SqlTool.Consultar(q).DefaultView;
+        }
+
+        public static DataView getSaldoContas()
+        {
+            string q = "select S.nome as conta, S.valor as saldo " +
+            "from saldo_contas_preview_view S order by 1";
 
             return SqlTool.Consultar(q).DefaultView;
         }
@@ -138,9 +187,9 @@ namespace MyControl.dao
             SqlTool.Executar(insert + update);
         }
 
-        public DataView getDebitosTemp()
+        public static DataView getDebitosTemp()
         {
-            string q = "select B.nome as conta, A.descricao, A.valor, A.descricaobco2, A.descricaobco1, to_char(A.datapgto,'dd/MM/yy') as data, A.bco as banco, A.codtran, A.codtran_mae from transacao_temp A left join conta B on (A.codconta = B.codconta) where to_char(datapgto,'yyyy/MM') = '" + anoMes+ "' and tipo='D' order by datapgto desc, bco, descricaobco2, valor";
+            string q = "select B.nome as conta, A.descricao, A.valor, A.descricaobco2, A.descricaobco1, to_char(A.datapgto,'dd/MM/yy') as data, A.bco as banco, A.codtran, A.codtran_mae from transacao_temp A left join conta B on (A.codconta = B.codconta) where to_char(datapgto,'yyyy/MM') = '" + getAnoMes() + "' and tipo='D' order by datapgto desc, bco, descricaobco2, valor";
 
             return SqlTool.Consultar(q).DefaultView;
         }

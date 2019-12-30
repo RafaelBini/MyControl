@@ -1,14 +1,27 @@
-﻿<Page x:Class="MyControl.view.RotinaPage4_Finalizar"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MyControl.view"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="MyControl.view.RotinaPage4_Finalizar"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RotinaPage4_Finalizar">
 
-    <Grid>
-        
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="397*"/>
+            <ColumnDefinition Width="403*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgSaldoBcos" ColumnWidth="*" Margin="60,73,60,80" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True"/>
+        <DataGrid x:Name="dgSaldoContas" ColumnWidth="*" Margin="60,73,60,80" Grid.Column="1" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True"/>
+
+        <Button x:Name="btnFinalizar" Content="Finalizar" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,60,31" VerticalAlignment="Bottom" Width="78" Foreground="#DDFFFFFF" IsDefault="True" IsEnabled="False" Padding="0" Click="BtnFinalizar_Click" />
+        <CheckBox x:Name="ckContas" Content="Os saldos estão de acordo com o esperado" Grid.Column="1" HorizontalAlignment="Left" Margin="59.667,0,0,40" VerticalAlignment="Bottom" Click="CkContas_Click" FontSize="16"/>
+        <CheckBox x:Name="ckBancos" Content="Os saldos estão de acordo com os reais" HorizontalAlignment="Left" Margin="60,0,0,40" VerticalAlignment="Bottom" Click="CheckBox_Click" FontSize="16"/>
+        <Label Content="Saldos das Contas no MyControl" Grid.Column="1" HorizontalAlignment="Left" Margin="59.667,31,0,0" VerticalAlignment="Top" Width="283" FontSize="16"/>
+        <Label Content="Saldos das Contas Bancárias" Grid.Column="0" HorizontalAlignment="Left" Margin="59.667,31,0,0" VerticalAlignment="Top" Width="283" FontSize="16"/>
+
     </Grid>
 </Page>

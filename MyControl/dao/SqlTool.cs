@@ -14,20 +14,35 @@ namespace MyControl.dao
         {
             NpgsqlConnection con = ConnectionFactory.GetConnection();
             con.Open();
-            NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(SqlQuery, con);
-            DataSet ds = new DataSet();
-            adapter.Fill(ds);
-            con.Close();
+            DataSet ds = null;
+            try
+            {
+                NpgsqlDataAdapter adapter = new NpgsqlDataAdapter(SqlQuery, con);
+                ds = new DataSet();
+                adapter.Fill(ds);
+            }
+            finally
+            {
+                con.Close();
+            }
+            
             return ds.Tables[0];
         }
 
         public static int Executar(String SqlQuery)
         {
+            int r = 0;
             NpgsqlConnection con = ConnectionFactory.GetConnection();
-            con.Open();
-            NpgsqlCommand cmd = new NpgsqlCommand(SqlQuery,con);
-            int r = cmd.ExecuteNonQuery();
-            con.Close();
+            con.Open();            
+            try
+            {
+                NpgsqlCommand cmd = new NpgsqlCommand(SqlQuery, con);
+                r = cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                con.Close();
+            }            
             return r;
         }
     }

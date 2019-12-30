@@ -83,6 +83,7 @@
     <Compile Include="dao\TransacaoTempDAO.cs" />
     <Compile Include="model\Banco.cs" />
     <Compile Include="model\Conta.cs" />
+    <Compile Include="model\items\ContaCreditarLinha.cs" />
     <Compile Include="model\Rotina.cs" />
     <Compile Include="model\Transacao.cs" />
     <Compile Include="view\DividirDebitoWindow.xaml.cs">

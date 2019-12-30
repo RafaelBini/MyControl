@@ -43,6 +43,7 @@ namespace MyControl
 
         public void setRotinaBarValue(int parte)
         {
+            // Determina a barra de progresso
             if (parte < 1 || parte > 4)
             {
                 pbarRotina.Value = 0;
@@ -55,8 +56,7 @@ namespace MyControl
                 btnRotina4.Background = pbarRotina.Background;
                 btnRotina1.Foreground = pbarRotina.Foreground;
                 return;
-            }
-            
+            }            
             pbarRotina.Value = parte - 1;
             btnRotina1.Background = pbarRotina.Foreground;
             btnRotina1.Foreground = pbarRotina.Background;
@@ -67,6 +67,16 @@ namespace MyControl
             btnRotina4.Background = parte > 3 ? pbarRotina.Foreground : pbarRotina.Background;
             btnRotina4.Foreground = parte > 3 ? pbarRotina.Background : pbarRotina.Foreground;
 
+            // Determina o label
+            lbParte.Content = RotinaDAO.getAnoMes() + " - ";
+            if (parte == 2)
+                lbParte.Content += "Alocar Débitos";
+            else if (parte == 3)
+                lbParte.Content += "Alocar Créditos";
+            else if (parte == 4)
+                lbParte.Content += "Finalizar";
+            else
+                lbParte.Content += "Importar Extratos";
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -97,6 +107,30 @@ namespace MyControl
         {
             if (RotinaDAO.getParte() >= 4)
                 mFrame.NavigationService.Navigate(new view.RotinaPage4_Finalizar());
+        }
+
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            // Confirma a ação
+            if (MessageBox.Show("Você tem certeza de que deseja DELETAR toda a rotina construida até agora para o mês " + RotinaDAO.getAnoMes() + " ?", "Atenção", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                return;
+
+            // Deleta todos os registros da temp
+            RotinaDAO.deleteTransacaoTemp();
+
+            // Seta rotina para zero
+            RotinaDAO.setParte(0);
+
+            // Direciona para Home Page
+            GlobalVars.mainWindow.mFrame.NavigationService.Navigate(new view.HomePage());
+            GlobalVars.mainWindow.getAnimation("SairRotina").Begin();
+        }
+
+        private void BtnHome_Click(object sender, RoutedEventArgs e)
+        {
+            // Direciona para Home Page
+            GlobalVars.mainWindow.mFrame.NavigationService.Navigate(new view.HomePage());
+            GlobalVars.mainWindow.getAnimation("SairRotina").Begin();
         }
     }
 }

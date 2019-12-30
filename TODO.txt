@@ -1,2 +1,4 @@
-- CONTINUAR:
-	- Começar etapa 3
+- Salvar no firebase quando finalizar
+- Inserir transacoes reais ao finalizar
+- Colocar botão para retornar ao Home
+- 

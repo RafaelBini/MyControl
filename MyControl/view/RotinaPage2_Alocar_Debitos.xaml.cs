@@ -104,9 +104,8 @@ namespace MyControl.view
 
         public void AtualizarDgs()
         {
-            RotinaDAO rotina = new RotinaDAO();
-            dgSaldoSoma.ItemsSource = rotina.getSaldoDebitoContas();
-            dgDebitos.ItemsSource = rotina.getDebitosTemp();
+            dgSaldoSoma.ItemsSource = RotinaDAO.getSaldoDebitoContas();
+            dgDebitos.ItemsSource = RotinaDAO.getDebitosTemp();
             VerificarCanGo();
         }
 
@@ -182,6 +181,9 @@ namespace MyControl.view
             if (dgSaldoSoma.SelectedItem==null || !pintandoContas)
                 return;
 
+            // Guarda a linha selecionada no saldoSoma
+            int indSelecionado = dgSaldoSoma.SelectedIndex;
+
             // Pega a nova conta          
             string nova_c = (dgSaldoSoma.SelectedItem as DataRowView).Row.ItemArray[0].ToString();
 
@@ -192,6 +194,12 @@ namespace MyControl.view
 
                 // Atualiza a grid de forma offline
                 dgDebitos.GetCell(dgDebitos.SelectedIndex, 0).Content = nova_c;
+
+                // Atualiza as DGs
+                AtualizarDgs();
+
+                // Seleciona de novo no dgSadoSoma
+                dgSaldoSoma.SelectedIndex = indSelecionado;
             }
             catch(Exception ex)
             {
@@ -234,6 +242,9 @@ namespace MyControl.view
 
                     // Atualiza a grid de forma offline
                     dgDebitos.GetCell(dgDebitos.SelectedIndex, 0).Content = nova_conta;
+
+                    // Atualiza as DGs
+                    AtualizarDgs();
                 }
                 catch (Exception ex)
                 {
@@ -264,6 +275,9 @@ namespace MyControl.view
 
                     // Atualiza a grid de forma offline
                     dgDebitos.GetCell(dgDebitos.SelectedIndex, 1).Content = nova_descricao;
+
+                    // Atualiza as DGs
+                    AtualizarDgs();
                 }
                 catch (Exception ex)
                 {

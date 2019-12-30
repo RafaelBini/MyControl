@@ -13,34 +13,50 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="130*"/>
         </Grid.ColumnDefinitions>
-
-        <DataGrid x:Name="dgCreditos" ColumnWidth="*" Grid.Column="0" FontSize="18" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DgCreditos_SelectionChanged" LoadingRow="DgCreditos_LoadingRow"/>
 
         <GridSplitter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" />
 
-        <Button Grid.Column="2" x:Name="btnNext" HorizontalAlignment="Center" Width="120" Margin="0,0,0,27" Foreground="#DDFFFFFF" Height="37"  IsEnabled="False" VerticalAlignment="Bottom" >
+        <Button Grid.Column="2" x:Name="btnNext" HorizontalAlignment="Center" Width="120" Margin="0,0,0,27" Foreground="#DDFFFFFF" Height="37"  IsEnabled="False" VerticalAlignment="Bottom" Click="BtnNext_Click" >
             <md:PackIcon Kind="ArrowRightBold" Height="27" Width="41" />
         </Button>
 
         <TextBox x:Name="txValor" Grid.Column="2" Height="25" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="3,0,0,0"  HorizontalAlignment="Center" TextWrapping="Wrap" Width="86" Margin="16.333,86,51,0" VerticalAlignment="Top" CaretBrush="Black" BorderThickness="1" Background="#FFF1F1F1" TextChanged="TxValor_TextChanged" />
-        <Button Grid.Column="2" Padding="0,0,0,0" Margin="107.333,86,17,0"  x:Name="btnAdd" HorizontalAlignment="Center" Width="29"  Foreground="#DDFFFFFF" Height="25"  IsEnabled="true" VerticalAlignment="Top" Background="#FF00B0F0" BorderBrush="#FF00B0F0" IsDefault="True" >
+        <Button Grid.Column="2" Padding="0,0,0,0" Margin="107.333,86,17,0"  x:Name="btnAdd" HorizontalAlignment="Center" Width="29"  Foreground="#DDFFFFFF" Height="25"  IsEnabled="true" VerticalAlignment="Top" Background="#FF00B0F0" BorderBrush="#FF00B0F0" IsDefault="True" Click="BtnAdd_Click" >
             <md:PackIcon Kind="Add" Height="19" Width="23" />
         </Button>
-        <Label Content="Total" Name="lbTotal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="244" HorizontalAlignment="Center" Margin="10,10,10,0" Grid.Column="2" VerticalAlignment="Top" Background="White" Height="41" FontWeight="Bold" FontSize="22" Foreground="#FF00B0F0"/>
-        <Grid Grid.Column="2" Margin="17,125,17,89" Background="#FFEAEDFF" >
+        <Button Grid.Column="2" Padding="0,0,0,0" Margin="170.333,86,17,0"  x:Name="btnRemove" HorizontalAlignment="Center" Width="29"  Foreground="#DDFFFFFF" Height="25"  IsEnabled="true" VerticalAlignment="Top" Background="red" BorderBrush="red" IsDefault="True" Click="BtnRemover_Click" >
+            <md:PackIcon Kind="Broom" Height="19" Width="23" />
+        </Button>
+        <Label Content="Total" Cursor="Hand" Name="lbTotal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="244" HorizontalAlignment="Center" Margin="84.667,29,84,0" Grid.Column="2" VerticalAlignment="Top" Background="White" Height="36" FontWeight="Bold" FontSize="22" Foreground="#FF00B0F0" MouseDown="LbTotal_MouseDown"/>
+        <Grid Grid.Column="2" Margin="16.667,158,17,89" Background="#FFEAEDFF" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100*"/>
                 <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="Nome da Conta" Name="lbNomeConta" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="37" Margin="0,0,0,0" FontWeight="Bold" FontSize="18"/>
-            <Label Content="Saldo" Name="lbSaldoConta" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="37" Margin="0.333,0,0,0" Grid.Column="1" FontWeight="Bold" FontSize="18"/>
-            <Label Content="Média Gastos" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="29" Margin="0,37,0,0" Foreground="#DD930000"/>
-            <Label Content="Média Créditos" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="29" Margin="0.333,37,0,0" Grid.Column="1" Foreground="#DD00763D"/>
-            <Label Content="Valor" Name="lbMediaGastos" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="29" Margin="0,66,0,0" Foreground="#DD930000" FontSize="18"/>
-            <Label Content="Valor" Name="lbMediaCreditos" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="29" Margin="0.333,66,0,0" Grid.Column="1" Foreground="#DD00763D" FontSize="18"/>
+            <Label Content="Agua" Name="lbNomeConta" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="37" Margin="0,37,0.333,0" FontWeight="Bold" FontSize="18"/>
+            <Label Content="130,20" Name="lbSaldoConta" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="37" Margin="0.667,37,-0.333,0" Grid.Column="1" FontWeight="Bold" FontSize="18" Foreground="#DD2E53DC"/>
+            <Label Content="Média Gastos" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="29" Margin="0,93,0.333,0" Foreground="#DD930000"/>
+            <Label Content="Média Créditos" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="29" Margin="0.667,93,0.667,0" Foreground="#DD00763D" Grid.Column="1"/>
+            <Label Content="Valor" Name="lbMediaGastos" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="29" Margin="0,122,0.333,0" Foreground="#DD930000" FontSize="18"/>
+            <Label Content="Valor" Name="lbMediaCreditos" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="29" Margin="0.667,122,0.667,0" Foreground="#DD00763D" FontSize="18" Grid.Column="1"/>
+            <Label Content="Nome da Conta" x:Name="lbNomeConta_Copy" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="37" Margin="0,0,0.333,0" FontWeight="Bold" FontSize="18"/>
+            <Label Content="Saldo" x:Name="lbSaldoConta_Copy" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="37" Margin="0.667,0,-0.333,0" Grid.Column="1" FontWeight="Bold" FontSize="18" Foreground="#DD2E53DC"/>
         </Grid>
+        <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="spContas" >
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Column="2" Cursor="Hand" MouseDown="ColocarRecomendado" HorizontalAlignment="Center" Height="30" Margin="0,120,0,0" VerticalAlignment="Top" Width="300">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="19*"/>
+                <ColumnDefinition Width="41*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Recomendado:" Foreground="#DD156200" Margin="0,0,0.667,0"/>
+            <Label x:Name="lbRecomendado" Content="322,23" Margin="0.333,0,0,0" Foreground="#DD156200" Grid.Column="1"/>
+        </Grid>
+        <Label Content="Total Disponivel" x:Name="lbTotal_Copy" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="244" HorizontalAlignment="Center" Margin="84.667,0,84,0" Grid.Column="2" VerticalAlignment="Top" Background="White" Height="40" FontWeight="Bold" FontSize="22" Foreground="#FF00B0F0"/>
 
     </Grid>
 </Page>

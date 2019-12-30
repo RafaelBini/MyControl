@@ -1,4 +1,5 @@
 ﻿<Window x:Class="MyControl.MainWindow"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -35,12 +36,21 @@
 
     <Grid Background="#FF00B0F0">
         <Frame x:Name="mFrame" Margin="0,15,0,10" Background="White" NavigationUIVisibility="Hidden"/>
-        <Grid Height="26" x:Name="gBar" Margin="120,-80,120,0" VerticalAlignment="Top">
+        <Grid Height="27" x:Name="gBar" Margin="120,-80,120,0" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="257.66*"/>
                 <ColumnDefinition Width="257.66*"/>
                 <ColumnDefinition Width="257.66*"/>
             </Grid.ColumnDefinitions>
+
+            <Label Name="lbParte" Content="2019/12 - Distribuir Débitos" FontSize="15" HorizontalAlignment="Center" Foreground="White" Grid.Column="1"  Margin="0,-22,0,0" />
+            <Button x:Name="btnHome" Grid.Column="0" Margin="-465,0,0,0" VerticalAlignment="Center" Background="#FF0064FF" BorderBrush="#FF0064FF" Foreground="White" Height="26" Width="30" Padding="0,0,0,0" Click="BtnHome_Click" >
+                <md:PackIcon Kind="Home" Height="20" Width="20"/>
+            </Button>
+            <Button x:Name="btnCancel" Grid.Column="2" Margin="0,0,-465,0" VerticalAlignment="Center" Background="MediumVioletRed" BorderBrush="MediumVioletRed" Foreground="White" Height="26" Width="30" Padding="0,0,0,0" Click="BtnCancel_Click" >
+                <md:PackIcon Kind="DeleteForever" Height="20" Width="20"/>
+            </Button>
+
             <ProgressBar Name="pbarRotina" Value="2" Maximum="3" Height="9" Margin="0,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="3" Background="White" Foreground="#FF0064FF" BorderBrush="#FF0064FF"/>
             <Button x:Name="btnRotina1" Grid.Column="0" Height="26" Width="25" VerticalAlignment="Center" Content="1" Padding="0,0,0,0" FontSize="18" Foreground="White" Background="#FF0064FF" BorderBrush="#FF0064FF" HorizontalAlignment="Left" Margin="0,0,0,0" Click="BtnRotina1_Click" />
             <Button x:Name="btnRotina2" Height="26" Width="25" Margin="0,0,-12.5,0" VerticalAlignment="Center" Content="2" Padding="0,0,0,0" FontSize="18" Foreground="White" BorderBrush="#FF0064FF" Background="#FF0064FF" HorizontalAlignment="Right" Click="BtnRotina2_Click" />
