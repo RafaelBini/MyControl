@@ -111,7 +111,7 @@ namespace MyControl.dao
         internal static void insertCredito(string conta, string valor)
         {
             string q = "insert into transacao_temp (descricao, codconta, valor, datapgto, tipo, adddatetime, metodoentrada, conta) VALUES " +
-            "('Distribuição MyControl', (select codconta from conta where nome ='" + conta + "'), '" + valor.Replace(",", ".") + "', '" + DateTime.Today.ToString("dd/MM/yyyy") + "', 'C', '" + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "', 'Distrib MyC', '" + conta + "');";
+            "('Distribuição MyControl', (select codconta from conta where nome ='" + conta + "'), '" + valor.Replace(",", ".") + "', '" + getAnoMes() + "/01" + "', 'C', '" + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "', 'Distrib MyC', '" + conta + "');";
             SqlTool.Executar(q);
         }
 
@@ -176,13 +176,14 @@ namespace MyControl.dao
             return SqlTool.Consultar("select count(*) from transacao_temp where (descricao is null or descricao = '' or codconta is null or conta is null or conta = '') and tipo='D'").Rows[0][0].ToString() == "0";
         }
 
-        public static void dividirTransacao(double valor, int transacaoSelecionada)
+        public static void dividirTransacao(string valor, int transacaoSelecionada)
         {
+
             String insert = "insert into transacao_temp (descricaobco1, descricaobco2, valor, datapgto, dctobco, tipo, adddatetime, metodoentrada, bco, codtran_mae) " +
-                    "select descricaobco1, descricaobco2, '-"+valor.ToString().Replace(".","").Replace(",",".")+"', datapgto, dctobco, tipo, adddatetime, metodoentrada, bco, '" + transacaoSelecionada + "' " +
+                    "select descricaobco1, descricaobco2, '-"+valor.ToString().Replace(",",".")+"', datapgto, dctobco, tipo, adddatetime, metodoentrada, bco, '" + transacaoSelecionada + "' " +
                     "from transacao_temp "+
                     "where codtran = '"+transacaoSelecionada+"'; ";
-            String update = "update transacao_temp set valor = valor + " + valor.ToString().Replace(".", "").Replace(",", ".") + " where codtran = '" + transacaoSelecionada + "'";
+            String update = "update transacao_temp set valor = valor + " + valor.ToString().Replace(",", ".") + " where codtran = '" + transacaoSelecionada + "'";
 
             SqlTool.Executar(insert + update);
         }

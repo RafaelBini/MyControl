@@ -43,7 +43,7 @@ namespace MyControl.view
                     return;              
 
                 // Insere nova transacao filha e atualiza a transacao mae
-                RotinaDAO.dividirTransacao(Convert.ToDouble(txValor.Text), GlobalVars.rotinaPage2.transacaoSelecionada);
+                RotinaDAO.dividirTransacao(txValor.Text, GlobalVars.rotinaPage2.transacaoSelecionada);
 
                 // Atualiza a grid
                 GlobalVars.rotinaPage2.AtualizarDgs();
