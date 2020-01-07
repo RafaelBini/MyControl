@@ -34,6 +34,8 @@ namespace MyControl
             // Direciona para pagina inicial
             mFrame.NavigationService.Navigate(new view.HomePage());
 
+            // Testando firestore            
+            //new view.RotinaPage4_Finalizar().inserirFirebase();
         }
 
         public Storyboard getAnimation(String AnimationKey)

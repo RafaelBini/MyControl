@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Google.Cloud.Firestore;
 
 namespace MyControl.view
 {
@@ -69,11 +70,58 @@ namespace MyControl.view
             RotinaDAO.setParte(0);
 
             // Insere os saldos no firebase
-
+            inserirFirebase();
 
             // Direciona para Home Page
             GlobalVars.mainWindow.mFrame.NavigationService.Navigate(new HomePage());
             GlobalVars.mainWindow.getAnimation("SairRotina").Begin();
         }
+
+        public async void inserirFirebase()
+        {
+            // Seta a variavel de ambiente para o caminho da chave em json
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\mycontrol-fca25-7b9cd2ec9c39.json");
+            
+            // Instancia o Firestore DB
+            FirestoreDb db = FirestoreDb.Create("mycontrol-fca25");
+
+            // Instancia a coleção contas
+            CollectionReference collection = db.Collection("contas");
+
+            // Atualizo / Crio cada documento (conta)
+            foreach (KeyValuePair<string,object> dic in ContaDAO.getContasToFire())
+            {
+                // Atualiza / Cria conta
+                await collection.Document(dic.Key).SetAsync(dic.Value);
+
+                // Exclui transações da conta
+
+            }
+
+            // Exclui contas inativas           
+            foreach(string contaInativa in ContaDAO.getContasInativas())
+            {
+                // Exclui conta inativa
+                await collection.Document(contaInativa).DeleteAsync();
+            }
+
+            // Exclui todas as transacoes
+            CollectionReference collectionReference = db.Collection("transacoes");
+            int batchSize = 500;
+            QuerySnapshot snapshot = await collectionReference.Limit(batchSize).GetSnapshotAsync();
+            IReadOnlyList<DocumentSnapshot> documents = snapshot.Documents;
+            while (documents.Count > 0)
+            {
+                foreach (DocumentSnapshot document in documents)
+                {
+                    await document.Reference.DeleteAsync();
+                }
+                snapshot = await collectionReference.Limit(batchSize).GetSnapshotAsync();
+                documents = snapshot.Documents;
+            }
+
+        }
+
+
     }
 }
