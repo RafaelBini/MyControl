@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using Google.Cloud.Firestore;
 
 namespace MyControl.dao
 {
@@ -112,6 +113,18 @@ namespace MyControl.dao
         {
             string q = "insert into transacao_temp (descricao, codconta, valor, datapgto, tipo, adddatetime, metodoentrada, conta) VALUES " +
             "('Distribuição MyControl', (select codconta from conta where nome ='" + conta + "'), '" + valor.Replace(",", ".") + "', '" + getAnoMes() + "/01" + "', 'C', '" + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss") + "', 'Distrib MyC', '" + conta + "');";
+            SqlTool.Executar(q);
+        }
+
+        internal static void updateTransacaoFire(DocumentSnapshot document)
+        {
+            Dictionary<string, object> d = document.ToDictionary();
+
+            DateTime addTime = Convert.ToDateTime(d["addTime"].ToString().Replace("Timestamp: ", "").Replace("T"," ").Replace("Z", " "));
+
+            string q = "update transacao_temp " +
+                "set descricao = '" + d["descricao"].ToString().Replace("'", "") + "', codconta=(select codconta from conta where nome='"+d["conta"].ToString()+ "'), conta='" + d["conta"].ToString() + "' " +
+                "where valor='-"+d["valor"].ToString().Replace(",",".") +"' and datapgto between '"+ addTime.AddDays(-5).ToString() + "' and '" + addTime.ToString() + "' ";
             SqlTool.Executar(q);
         }
 

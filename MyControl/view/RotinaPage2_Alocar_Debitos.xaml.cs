@@ -1,4 +1,5 @@
-﻿using MyControl.dao;
+﻿using Google.Cloud.Firestore;
+using MyControl.dao;
 using MyControl.model;
 using System;
 using System.Collections.Generic;
@@ -101,6 +102,8 @@ namespace MyControl.view
             RotinaDAO.setParte(2);
             AtualizarDgs();
         }
+
+       
 
         public void AtualizarDgs()
         {

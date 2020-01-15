@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Google.Cloud.Firestore;
+using Microsoft.Win32;
 using MyControl.dao;
 using MyControl.model;
 using System;
@@ -47,6 +48,9 @@ namespace MyControl.view
             lbAnoMes.Content = RotinaDAO.getAnoMes();
             AtualizarDg();
             AtualizaCb();
+
+            dgImportacoes.SelectedIndex = 0;
+            cbBcoId.SelectedIndex = 0;
         }
 
         private void AtualizaCb()
@@ -59,7 +63,6 @@ namespace MyControl.view
         private void AtualizarDg()
         {
             dgImportacoes.ItemsSource = RotinaDAO.getBancosImportados();
-            dgImportacoes.SelectedIndex = 0;
         }
 
         private void BtnVoltar_Click(object sender, RoutedEventArgs e)
@@ -124,6 +127,7 @@ namespace MyControl.view
                 {
                     // Deleta os registros existentes
                     RotinaDAO.deleteExtrato(bancoSelecionado);
+
                     // Atualiza a grid
                     AtualizarDg();
                 }
@@ -158,9 +162,39 @@ namespace MyControl.view
                 
             }
 
+            // Atualiza com os dados do FireStore
+            AtualizarTransacoesConformeFire();
+
             // Atualiza datagrid
             AtualizarDg();
 
+        }
+
+        public async void AtualizarTransacoesConformeFire()
+        {
+            // Instancia a coleção transações
+            CollectionReference collectionReference = GlobalVars.db.Collection("transacoes");
+
+            // Determina o máximo de registros que serão consultados
+            int batchSize = 500;
+
+            // Consulta todos os documentos (no maximo 500) da coleção transações
+            QuerySnapshot snapshot = await collectionReference.Limit(batchSize).GetSnapshotAsync();
+
+            // Instancia uma lista com esses documentos
+            IReadOnlyList<DocumentSnapshot> documents = snapshot.Documents;
+
+            // Se a lista não está vazia,
+            if (documents.Count > 0)
+            {
+                // Passa cada transacao
+                foreach (DocumentSnapshot document in documents)
+                {
+                    // Faz update no postgres
+                    RotinaDAO.updateTransacaoFire(document);
+                }
+
+            }
         }
     }
 }

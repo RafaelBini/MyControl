@@ -79,22 +79,14 @@ namespace MyControl.view
 
         public async void inserirFirebase()
         {
-            // Seta a variavel de ambiente para o caminho da chave em json
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\mycontrol-fca25-7b9cd2ec9c39.json");
-            
-            // Instancia o Firestore DB
-            FirestoreDb db = FirestoreDb.Create("mycontrol-fca25");
-
             // Instancia a coleção contas
-            CollectionReference collection = db.Collection("contas");
+            CollectionReference collection = GlobalVars.db.Collection("contas");
 
             // Atualizo / Crio cada documento (conta)
             foreach (KeyValuePair<string,object> dic in ContaDAO.getContasToFire())
             {
                 // Atualiza / Cria conta
                 await collection.Document(dic.Key).SetAsync(dic.Value);
-
-                // Exclui transações da conta
 
             }
 
@@ -106,7 +98,7 @@ namespace MyControl.view
             }
 
             // Exclui todas as transacoes
-            CollectionReference collectionReference = db.Collection("transacoes");
+            CollectionReference collectionReference = GlobalVars.db.Collection("transacoes");
             int batchSize = 500;
             QuerySnapshot snapshot = await collectionReference.Limit(batchSize).GetSnapshotAsync();
             IReadOnlyList<DocumentSnapshot> documents = snapshot.Documents;
