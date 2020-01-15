@@ -8,5 +8,13 @@ namespace MyControl.model
 {
     class Conta
     {
+        public string cod;
+        public string nome;
+        public string descricao;
+        public int prioridade;
+        public bool ativo;
+        public string link;
+        public string saldo;
+        public bool notificar;
     }
 }

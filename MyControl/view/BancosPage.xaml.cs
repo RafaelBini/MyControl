@@ -29,6 +29,7 @@ namespace MyControl.view
         {
             InitializeComponent();
             AtualizarGrid();
+
         }
 
         private void AtualizarGrid()
@@ -61,7 +62,12 @@ namespace MyControl.view
                     txImg.Text = banco.Imagem;
                     cbExtrato.Text = banco.Extrato;
                 }
-                
+
+                // Se é o primeiro botão a ser criado, seleciona-o
+                if (i == 0)
+                    Btn_Click(null, null);
+
+                // Se é o ultimo da linha,
                 if (i % 4 == 0)
                 {
                     // Adiciona uma nova linha

@@ -1,0 +1,34 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MyControl.view"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="MyControl.view.ContasPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ContasPage">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="349*"/>
+            <ColumnDefinition Width="451*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgContas" Margin="0,0,0,0" ColumnWidth="*" Grid.Column="1" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" SelectionMode="Single" IsReadOnly="True" SelectionChanged="DgContas_SelectionChanged"/>
+        <Label x:Name="lbNomeConta" FontSize="30" Content="Nome da Conta" HorizontalContentAlignment="Center" Margin="75,5,75,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF03A9F4"/>
+        <TextBlock x:Name="lbDescrConta" Text="Descrição da Conta Descrição da Conta Descrição da Conta Descrição da Conta Descrição da Conta" TextWrapping="Wrap" Margin="45,68,45,0" VerticalAlignment="Top" Padding="0,0,0,0" Height="100" Background="#FFF0F0F0" />
+        <Label Content="Saldo:" Margin="45,181,45.333,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbSaldoConta" Content="R$ 50.00" Margin="45,206,45.333,0" FontSize="25" VerticalContentAlignment="Center" VerticalAlignment="Top" Height="44"/>
+        <Button x:Name="btnTrans" Content="Transferir" HorizontalAlignment="Left" Margin="45,292,0,0" VerticalAlignment="Top" Width="92" Foreground="#DDFFFFFF" Click="BtnTrans_Click"/>
+        <Button x:Name="btnInativar" Content="Inativar" Margin="0,0,29.333,24" Foreground="#DDFFFFFF" BorderBrush="{x:Null}" Background="#FFF76A6A" Height="32" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="106" Click="BtnInativar_Click"/>
+        <Button x:Name="btnEstatisticas" Content="Estatístias" HorizontalAlignment="Left" Margin="45,0,0,24" Width="104" Foreground="#DDFFFFFF" Height="32" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="txTransf" HorizontalAlignment="Left" Padding="5,0,0,0" VerticalContentAlignment="Center" Height="32" Margin="142,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" BorderThickness="1"/>
+        <Label Content="para" Padding="0,0,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="229,292,0,0" VerticalAlignment="Top" Height="32" Width="29"/>
+        <ComboBox x:Name="cbContas" Padding="10,0,0,0" VerticalContentAlignment="Center" Margin="263,292,45.333,0" VerticalAlignment="Top" Height="32"/>
+        <Button HorizontalAlignment="Left" x:Name="btnVoltar" Padding="0,0,0,0" Margin="29,16,0,0" VerticalAlignment="Top" Width="41" Height="33" Background="{x:Null}" BorderBrush="{x:Null}" Click="BtnVoltar_Click">
+            <materialDesign:PackIcon Kind="ArrowBack" Height="30" Width="32"/>
+        </Button>
+        <Button Content="Add Conta" Grid.Column="1" HorizontalAlignment="Right" Margin="0,5,25,0" VerticalAlignment="Top" Width="110" Foreground="#DDFFFFFF" BorderBrush="{x:Null}" Background="#FF61B200" Click="Button_Click"/>
+
+    </Grid>
+</Page>

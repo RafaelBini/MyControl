@@ -24,7 +24,7 @@
         <Label x:Name="lbEstatistica" Content="Tempo de sobrevivência sem trabalhar" Margin="14,10,10,0" VerticalAlignment="Top" Height="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22" Background="#FF00B0F0" Grid.Column="1" Foreground="#DDFFFFFF"/>
         <Label x:Name="lbValorEstatistica" Content="3 meses" Margin="14,48,10,0" VerticalAlignment="Top" Height="38" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="22" BorderBrush="#FF00B0F0" Padding="0,0,0,0" BorderThickness="3" Grid.Column="1"/>
         <Button x:Name="btnBancos" Content="Bancos" Margin="49,23,52,21" Height="Auto" Grid.Row="1" Foreground="#DDFFFFFF" Click="BtnBancos_Click"/>
-        <Button x:Name="btnContas" Content="Contas" Margin="49,14,52,22" Height="Auto" Grid.Row="2" Foreground="#DDFFFFFF"/>
+        <Button x:Name="btnContas" Content="Contas" Margin="49,14,52,22" Height="Auto" Grid.Row="2" Foreground="#DDFFFFFF" Click="BtnContas_Click"/>
         <Button x:Name="btnGo" Content="Iniciar/Continuar" Margin="223,16,227,20" Height="Auto" Grid.Row="2" Foreground="#DDFFFFFF" Grid.Column="1" Click="BtnGo_Click"/>
         <Image Height="76" Margin="10,10,10,0"  Source="/MyControl;component/resources/MyControl_logo.png" VerticalAlignment="Top"/>
     </Grid>

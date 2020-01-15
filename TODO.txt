@@ -1,4 +1,3 @@
-- Salvar no firebase quando finalizar
-- Inserir transacoes reais ao finalizar
-- Colocar botão para retornar ao Home
-- 
+- Criar Estatisticas
+- Criar opção de editar detalhes das contas como "Obrigatória", "Prioridade" e etc
+- Criar visualização de hostório de transações de cada conta

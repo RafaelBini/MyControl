@@ -95,5 +95,10 @@ namespace MyControl.view
                     return new RotinaPage1_Importar_Extratos();
             }
         }
+
+        private void BtnContas_Click(object sender, RoutedEventArgs e)
+        {
+            GlobalVars.mainWindow.mFrame.NavigationService.Navigate(new ContasPage());
+        }
     }
 }

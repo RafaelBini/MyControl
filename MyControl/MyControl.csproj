@@ -145,8 +145,14 @@
     <Compile Include="model\items\ContaCreditarLinha.cs" />
     <Compile Include="model\Rotina.cs" />
     <Compile Include="model\Transacao.cs" />
+    <Compile Include="view\ContasPage.xaml.cs">
+      <DependentUpon>ContasPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\DividirDebitoWindow.xaml.cs">
       <DependentUpon>DividirDebitoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="view\NovaContaWindow.xaml.cs">
+      <DependentUpon>NovaContaWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="view\RotinaPage1_Importar_Extratos.xaml.cs">
       <DependentUpon>RotinaPage1_Importar_Extratos.xaml</DependentUpon>
@@ -161,6 +167,10 @@
       <DependentUpon>RotinaPage4_Finalizar.xaml</DependentUpon>
     </Compile>
     <Page Include="view\BancosPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\ContasPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -191,6 +201,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="view\NovaContaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="view\RotinaPage1_Importar_Extratos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

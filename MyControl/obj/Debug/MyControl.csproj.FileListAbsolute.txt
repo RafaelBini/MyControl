@@ -90,3 +90,7 @@ C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\bin\D
 C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\bin\Debug\System.Interactive.Async.xml
 C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\bin\Debug\System.ValueTuple.xml
 C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\MyControl_Content.g.cs
+C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\view\ContasPage.g.cs
+C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\view\ContasPage.baml
+C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\view\NovaContaWindow.g.cs
+C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\view\NovaContaWindow.baml
