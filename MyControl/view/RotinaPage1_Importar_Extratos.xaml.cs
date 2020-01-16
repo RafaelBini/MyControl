@@ -73,7 +73,8 @@ namespace MyControl.view
 
         private void BtnProximo_Click(object sender, RoutedEventArgs e)
         {
-            GlobalVars.mainWindow.mFrame.NavigationService.Navigate(new RotinaPage2_Alocar_Debitos());
+            // Atualiza com os dados do FireStore e da nova thread gerada faz o redirecionamento de pagina
+            AtualizarTransacoesConformeFire();            
         }
 
         private void CkConfere_Click(object sender, RoutedEventArgs e)
@@ -162,12 +163,8 @@ namespace MyControl.view
                 
             }
 
-            // Atualiza com os dados do FireStore
-            AtualizarTransacoesConformeFire();
-
             // Atualiza datagrid
             AtualizarDg();
-
         }
 
         public async void AtualizarTransacoesConformeFire()
@@ -195,6 +192,9 @@ namespace MyControl.view
                 }
 
             }
+
+            // Direciona para a proxima página
+            GlobalVars.mainWindow.mFrame.NavigationService.Navigate(new RotinaPage2_Alocar_Debitos());
         }
     }
 }

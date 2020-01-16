@@ -1,4 +1,5 @@
-﻿using MyControl.dao;
+﻿using Google.Cloud.Firestore;
+using MyControl.dao;
 using MyControl.model;
 using System;
 using System.Collections.Generic;
@@ -38,18 +39,24 @@ namespace MyControl.view
             }
             else if (e.Key == Key.Enter)
             {
-                // Se não tem linha selecionada, encerra
-                if (GlobalVars.rotinaPage2.dgDebitos.SelectedItem == null ||  !Double.TryParse(txValor.Text, out Double a))
-                    return;              
+                // Instancia o valor_filho e o valor_mae
+                double valor_filho;
+                double valor_mae;
+                string valor_mae_str = (GlobalVars.rotinaPage2.dgDebitos.SelectedItem as DataRowView).Row.ItemArray[2].ToString().Replace(".", ",").Replace("-","");
+
+                // Se não tem linha selecionada, encerra (aqui também se atribui os valores mãe e filho)
+                if (GlobalVars.rotinaPage2.dgDebitos.SelectedItem == null ||  !Double.TryParse(txValor.Text.Replace(".",","), out valor_filho) || !Double.TryParse(valor_mae_str, out valor_mae))
+                    return;
+
+                // Calcula o novo valor mãe
+                valor_mae = valor_mae - valor_filho;
 
                 // Insere nova transacao filha e atualiza a transacao mae
                 RotinaDAO.dividirTransacao(txValor.Text, GlobalVars.rotinaPage2.transacaoSelecionada);
 
-                // Atualiza a grid
-                GlobalVars.rotinaPage2.AtualizarDgs();
+                // Atualiza as transações conforme o firestore e encerra pela nova thread gerada
+                AtualizarTransacoesConformeFire(valor_filho, valor_mae);
 
-                // Fecha
-                this.Close();
             }
         }
 
@@ -61,6 +68,39 @@ namespace MyControl.view
                 this.Close();
             }
             catch(Exception ex) { }
+        }
+
+        public async void AtualizarTransacoesConformeFire(double valor_filho, double valor_mae)
+        {
+            // Instancia a coleção transações
+            CollectionReference collectionReference = GlobalVars.db.Collection("transacoes");
+
+            // Determina o máximo de registros que serão consultados
+            int batchSize = 500;
+
+            // Consulta todos os documentos (no maximo 500) da coleção transações
+            QuerySnapshot snapshot = await collectionReference.WhereIn("valor",new double[] { valor_filho, valor_mae }).Limit(batchSize).GetSnapshotAsync();
+
+            // Instancia uma lista com esses documentos
+            IReadOnlyList<DocumentSnapshot> documents = snapshot.Documents;
+
+            // Se a lista não está vazia,
+            if (documents.Count > 0)
+            {
+                // Passa cada transacao
+                foreach (DocumentSnapshot document in documents)
+                {
+                    // Faz update no postgres
+                    RotinaDAO.updateTransacaoFire(document);
+                }
+
+            }
+
+            // Atualiza a grid
+            GlobalVars.rotinaPage2.AtualizarDgs();
+
+            // Fecha
+            this.Close();
         }
     }
 }
