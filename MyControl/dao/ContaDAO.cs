@@ -19,12 +19,13 @@ namespace MyControl.dao
         {
             Dictionary<string, object> lista = new Dictionary<string, object>();
 
-            foreach (DataRow conta in SqlTool.Consultar("select nome, valor as saldo from saldo_contas_view").Rows)
+            foreach (DataRow conta in SqlTool.Consultar("select conta.nome, saldo_contas_view.valor as saldo, conta.notificar from saldo_contas_view inner join conta on saldo_contas_view.nome = conta.nome").Rows)
             {
                 Dictionary<string, object> node = new Dictionary<string, object>();
                 Double saldo = Convert.ToDouble(conta["saldo"]);
-                node["saldo inicial"] = saldo;
-                node["saldo atual"] = saldo;                
+                bool notificar = Convert.ToBoolean(conta["notificar"]);
+                node["saldo atual"] = saldo;
+                node["notificar"] = notificar;
                 lista[conta["nome"].ToString()] = node;
             }
 
