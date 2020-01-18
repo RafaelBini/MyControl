@@ -25,6 +25,7 @@ namespace MyControl.dao
                 Double saldo = Convert.ToDouble(conta["saldo"]);
                 bool notificar = Convert.ToBoolean(conta["notificar"]);
                 node["saldo atual"] = saldo;
+                node["saldo inicial"] = saldo;
                 node["notificar"] = notificar;
                 lista[conta["nome"].ToString()] = node;
             }
