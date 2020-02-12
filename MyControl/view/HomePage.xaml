@@ -27,5 +27,8 @@
         <Button x:Name="btnContas" Content="Contas" Margin="49,14,52,22" Height="Auto" Grid.Row="2" Foreground="#DDFFFFFF" Click="BtnContas_Click"/>
         <Button x:Name="btnGo" Content="Iniciar/Continuar" Margin="223,16,227,20" Height="Auto" Grid.Row="2" Foreground="#DDFFFFFF" Grid.Column="1" Click="BtnGo_Click"/>
         <Image Height="76" Margin="10,10,10,0"  Source="/MyControl;component/resources/MyControl_logo.png" VerticalAlignment="Top"/>
+        <Button Background="White" Click="BtnRefresh_Click" ToolTip="Resetar os dados do app mobile" Foreground="Black" HorizontalAlignment="Left" Padding="0,0,0,0" VerticalAlignment="Top" Width="30" Height="30" Grid.Column="1" Margin="26,16,0,0">
+            <md:PackIcon Kind="Refresh" Height="20" Width="20" />
+        </Button>
     </Grid>
 </Page>

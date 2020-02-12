@@ -93,6 +93,7 @@ namespace MyControl.view
     {
         private bool pintandoContas = false;
         public int transacaoSelecionada;
+        DataView dvDebitos;
 
         public RotinaPage2_Alocar_Debitos()
         {
@@ -108,7 +109,8 @@ namespace MyControl.view
         public void AtualizarDgs()
         {
             dgSaldoSoma.ItemsSource = RotinaDAO.getSaldoDebitoContas();
-            dgDebitos.ItemsSource = RotinaDAO.getDebitosTemp();
+            dvDebitos = RotinaDAO.getDebitosTemp();
+            dgDebitos.ItemsSource = dvDebitos;
             VerificarCanGo();
         }
 
@@ -129,6 +131,9 @@ namespace MyControl.view
                 pintandoContas = false;
                 dgDebitos.Cursor = Cursors.Arrow;
                 dgDebitos.IsReadOnly = false;
+
+                // Remove o filtro de grupos
+                dvDebitos.RowFilter = "";
             }
             // Se uma conta foi selecionada    
             else
@@ -137,6 +142,10 @@ namespace MyControl.view
                 pintandoContas = true;
                 dgDebitos.Cursor = Cursors.Cross;
                 dgDebitos.IsReadOnly = true;
+
+                // Filtra pelo grupo da conta
+                string meuGrupo = ContaDAO.getConta((dgSaldoSoma.SelectedItem as DataRowView).Row.ItemArray[0].ToString()).grupo;
+                dvDebitos.RowFilter = "grupo='" + meuGrupo + "'";
 
             }
                 

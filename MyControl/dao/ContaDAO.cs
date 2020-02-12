@@ -42,9 +42,9 @@ namespace MyControl.dao
             return SqlTool.Consultar(q).DefaultView;
         }
 
-        public static DataView getContasExceto(string nomeConta)
+        public static DataView getContasExceto(string nomeConta, string grupo)
         {
-            string q = "select nome from conta where ativo='true' and nome<>'"+nomeConta+"' order by nome";
+            string q = "select nome from conta where ativo='true' and grupo='"+grupo+"' and nome<>'"+nomeConta+"' order by nome";
 
             return SqlTool.Consultar(q).DefaultView;
         }
@@ -60,7 +60,7 @@ namespace MyControl.dao
 
         internal static void insertConta(Conta c)
         {
-            string q = "insert into conta (nome, descricao, prioridade, notificar, ativo, adddatetime) values ('"+c.nome+"','"+c.descricao+"','"+c.prioridade+"', '"+c.notificar.ToString()+"', 'true', '"+DateTime.Now.ToString()+"')";
+            string q = "insert into conta (nome, descricao, prioridade, notificar, ativo, adddatetime, grupo) values ('"+c.nome+"','"+c.descricao+"','"+c.prioridade+"', '"+c.notificar.ToString()+"', 'true', '"+DateTime.Now.ToString()+"', '"+c.grupo+"')";
             SqlTool.Executar(q);
         }
 
@@ -78,6 +78,7 @@ namespace MyControl.dao
                 c.link = i["link"].ToString();
                 c.ativo = Convert.ToBoolean(i["ativo"]);
                 c.saldo = i["saldo"].ToString();
+                c.grupo = i["grupo"].ToString();
             }
             catch
             {

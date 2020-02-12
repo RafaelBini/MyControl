@@ -100,5 +100,10 @@ namespace MyControl.view
         {
             GlobalVars.mainWindow.mFrame.NavigationService.Navigate(new ContasPage());
         }
+
+        private void BtnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            new RotinaPage4_Finalizar().inserirFirebase();
+        }
     }
 }

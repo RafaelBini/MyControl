@@ -124,7 +124,7 @@ namespace MyControl.dao
 
             string q = "update transacao_temp " +
                 "set descricao = '" + d["descricao"].ToString().Replace("'", "") + "', codconta=(select codconta from conta where nome='"+d["conta"].ToString()+ "'), conta='" + d["conta"].ToString() + "' " +
-                "where valor='-"+d["valor"].ToString().Replace(",",".") +"' and datapgto between '"+ addTime.AddDays(-5).ToString() + "' and '" + addTime.ToString() + "' ";
+                "where valor='-"+d["valor"].ToString().Replace(",",".") +"' and datapgto between '"+ addTime.AddDays(-5).ToString() + "' and '" + addTime.AddDays(3).ToString() + "' ";
             SqlTool.Executar(q);
         }
 
@@ -203,7 +203,7 @@ namespace MyControl.dao
 
         public static DataView getDebitosTemp()
         {
-            string q = "select B.nome as conta, A.descricao, A.valor, A.descricaobco2, A.descricaobco1, to_char(A.datapgto,'dd/MM/yy') as data, A.bco as banco, A.codtran, A.codtran_mae from transacao_temp A left join conta B on (A.codconta = B.codconta) where to_char(datapgto,'yyyy/MM') = '" + getAnoMes() + "' and tipo='D' order by datapgto desc, bco, descricaobco2, valor";
+            string q = "select B.nome as conta, A.descricao, A.valor, A.descricaobco2, A.descricaobco1, to_char(A.datapgto,'dd/MM/yy') as data, A.bco as banco, A.codtran, A.codtran_mae, banco.grupo from transacao_temp A left join conta B on (A.codconta = B.codconta) left join banco on (banco.bco_id = A.bco) where to_char(datapgto,'yyyy/MM') = '" + getAnoMes() + "' and tipo='D' order by datapgto desc, bco, descricaobco2, valor";
 
             return SqlTool.Consultar(q).DefaultView;
         }

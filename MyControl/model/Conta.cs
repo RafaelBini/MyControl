@@ -16,5 +16,6 @@ namespace MyControl.model
         public string link;
         public string saldo;
         public bool notificar;
+        public string grupo;
     }
 }

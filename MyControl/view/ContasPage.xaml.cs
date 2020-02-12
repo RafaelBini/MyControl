@@ -30,9 +30,9 @@ namespace MyControl.view
             dgContas.SelectedIndex = 0;
         }
 
-        private void AtualizarCb(string nomeConta)
+        private void AtualizarCb(string nomeConta, string grupo)
         {
-            cbContas.ItemsSource = ContaDAO.getContasExceto(nomeConta);
+            cbContas.ItemsSource = ContaDAO.getContasExceto(nomeConta, grupo);
             cbContas.DisplayMemberPath = "nome";
             cbContas.SelectedIndex = 0;
         }
@@ -66,6 +66,7 @@ namespace MyControl.view
             lbNomeConta.Content = c.nome;
             lbDescrConta.Text = c.descricao;
             lbSaldoConta.Content = "R$ " + c.saldo;
+            lbGrupo.Content = c.grupo;
 
             txTransf.Text = "0.00";
 
@@ -80,7 +81,7 @@ namespace MyControl.view
                 btnInativar.Background = Brushes.Green;
             }
 
-            AtualizarCb(nomeConta);
+            AtualizarCb(nomeConta, c.grupo);
         }
 
         private void BtnTrans_Click(object sender, RoutedEventArgs e)

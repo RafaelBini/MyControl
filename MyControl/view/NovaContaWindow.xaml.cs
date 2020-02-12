@@ -57,6 +57,7 @@ namespace MyControl.view
             c.descricao = txDescricao.Text;
             c.prioridade = p;
             c.notificar = Convert.ToBoolean(ckNotificar.IsChecked);
+            c.grupo = txGrupo.Text;
             ContaDAO.insertConta(c);
 
             // Atualiza a página

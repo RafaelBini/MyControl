@@ -61,6 +61,7 @@ namespace MyControl.view
                     txNome.Text = banco.Nome;
                     txImg.Text = banco.Imagem;
                     cbExtrato.Text = banco.Extrato;
+                    txGrupo.Text = banco.Grupo;
                 }
 
                 // Se é o primeiro botão a ser criado, seleciona-o
@@ -118,7 +119,7 @@ namespace MyControl.view
 
         private void BtnSalvar_Click(object sender, RoutedEventArgs e)
         {
-            Banco banco = new Banco(txCodigo.Text,Convert.ToInt32(txBcoId2.Text), txNome.Text,cbExtrato.Text,txImg.Text);
+            Banco banco = new Banco(txCodigo.Text,Convert.ToInt32(txBcoId2.Text), txNome.Text,cbExtrato.Text,txImg.Text, txGrupo.Text);
             BancoDAO.setBanco(banco);
             AtualizarGrid();
         }
