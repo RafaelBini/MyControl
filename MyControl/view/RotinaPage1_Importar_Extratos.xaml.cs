@@ -162,6 +162,18 @@ namespace MyControl.view
                 }
                 
             }
+            else if (bancoSelecionado.Extrato == "CSV")
+            {
+                try
+                {
+                    RotinaDAO.importarCSV(dialogo.FileName, bancoSelecionado, RotinaDAO.getAnoMes());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                    return;
+                }
+            }
 
             // Atualiza datagrid
             AtualizarDg();

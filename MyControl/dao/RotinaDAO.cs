@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Google.Cloud.Firestore;
+using System.Data.SqlClient;
 
 namespace MyControl.dao
 {
@@ -126,6 +127,78 @@ namespace MyControl.dao
                 "set descricao = '" + d["descricao"].ToString().Replace("'", "") + "', codconta=(select codconta from conta where nome='"+d["conta"].ToString()+ "'), conta='" + d["conta"].ToString() + "' " +
                 "where valor='-"+d["valor"].ToString().Replace(",",".") +"' and datapgto between '"+ addTime.AddDays(-5).ToString() + "' and '" + addTime.AddDays(3).ToString() + "' ";
             SqlTool.Executar(q);
+        }
+
+        internal static void importarCSV(string fileName, Banco bancoSelecionado, string anoMes)
+        {
+            // Recebe os cabeçalhos
+            StreamReader sr = new StreamReader(fileName, Encoding.GetEncoding("iso-8859-1"));
+            string[] headers = sr.ReadLine().Split(';');
+            DataTable dt = new DataTable();
+            foreach (string header in headers)
+            {
+                dt.Columns.Add(header);
+            }
+
+            // Valida se existem os tres cabeçalhos
+            if (!dt.Columns.Contains("DESCRICAO"))
+            {
+                throw new Exception("Deve haver uma coluna com o nome DESCRICAO");
+            }
+            else if (!dt.Columns.Contains("VALOR"))
+            {
+                throw new Exception("Deve haver uma coluna com o nome VALOR");
+            }
+            else if (!dt.Columns.Contains("DATA"))
+            {
+                throw new Exception("Deve haver uma coluna com o nome DATA");
+            }
+
+            // Recebe as linhas
+            while (!sr.EndOfStream)
+            {
+                string line = sr.ReadLine();
+
+                // Valida se a linha está vazia
+                if (line.Replace(";", "").Trim() == "")
+                    continue;
+
+                // Recebe os dados da linha
+                string[] rows = line.Split(';');
+                DataRow dr = dt.NewRow();
+                for (int i = 0; i < headers.Length; i++)
+                {
+                    dr[i] = rows[i];
+                }
+                dt.Rows.Add(dr);
+            }
+
+            // Cria a string do comando SQL
+            string transacao_temp_insert = "INSERT INTO transacao_temp (datapgto,valor,tipo,descricaobco2,dctobco,bco,adddatetime,metodoentrada) VALUES ";
+            foreach (DataRow linha in dt.Rows)
+            {
+                // Se é fora do mes, pula
+                if (Convert.ToDateTime(linha["DATA"]).ToString("yyyy/MM") != anoMes)
+                    continue;
+
+                // Incrementa a string
+                transacao_temp_insert +=
+                    "('" + linha["DATA"].ToString().Trim() + "', " +
+                    "'" + linha["VALOR"].ToString().Replace(",", ".").Trim() + "', " +
+                    "'" + (Convert.ToDouble(linha["VALOR"].ToString()) > 0 ? "C" : "D") + "', " +
+                    "'" + linha["DESCRICAO"].ToString() + "', " +
+                    "''," +
+                    "'" + bancoSelecionado.Id + "'," +
+                    "'" + DateTime.Now.ToString() + "'," +
+                    "'C# CSV'),";
+            }
+
+            // Finaliza string
+            transacao_temp_insert = transacao_temp_insert.Substring(0, transacao_temp_insert.Length - 1);
+
+            // Executa o insert
+            SqlTool.Executar(transacao_temp_insert);
+
         }
 
         internal static void deleteCredito(string conta, string valor)

@@ -139,7 +139,6 @@
     <Compile Include="dao\RotinaDAO.cs" />
     <Compile Include="dao\SqlTool.cs" />
     <Compile Include="dao\TransacaoDAO.cs" />
-    <Compile Include="dao\TransacaoTempDAO.cs" />
     <Compile Include="model\Banco.cs" />
     <Compile Include="model\Conta.cs" />
     <Compile Include="model\items\ContaCreditarLinha.cs" />
