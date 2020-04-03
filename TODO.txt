@@ -1,3 +1,8 @@
+- Colocar limite grupo na hora de distribuir creditos
+- Deixar visualmente mais bonito a parte de distribuir credtos
+- Criar opção de dédito único
 - Criar Estatisticas
 - Criar opção de editar detalhes das contas como "Obrigatória", "Prioridade" e etc
-- Criar visualização de hostório de transações de cada conta
+- Criar visualização de histório de transações de cada conta
+- Arrumar calculo da média
+- Esconder saldo e só mostrar quando solicitado

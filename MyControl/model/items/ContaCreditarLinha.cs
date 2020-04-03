@@ -105,6 +105,7 @@ namespace MyControl.model.items
             page.lbMediaGastos.Content = RotinaDAO.getMediaGastosConta(conta);
             page.lbMediaCreditos.Content = RotinaDAO.getMediaCreditosConta(conta);            
             page.lbRecomendado.Content = getRecomendado(Convert.ToDouble(page.lbSaldoConta.Content), Convert.ToDouble(page.lbMediaGastos.Content)).ToString();
+            page.AtualizarTotal(conta);
         }
 
         public double getRecomendado(double saldo, double gastos)

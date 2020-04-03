@@ -25,7 +25,7 @@ namespace MyControl.dao
         public static int setBanco(Banco bco)
         {
             if(existe(bco.Id))
-                return SqlTool.Executar("UPDATE banco SET bco_nome='" + bco.Nome + "',bco_id2='"+bco.Id2+"' bco_extrato='" + bco.Extrato + "', bco_img_src='" + bco.Imagem + "', grupo='"+bco.Grupo+"' WHERE bco_id='" + bco.Id+"'");
+                return SqlTool.Executar("UPDATE banco SET bco_nome='" + bco.Nome + "',bco_id2='"+bco.Id2+"', bco_extrato='" + bco.Extrato + "', bco_img_src='" + bco.Imagem + "', grupo='"+bco.Grupo+"' WHERE bco_id='" + bco.Id+"'");
             else
                 return SqlTool.Executar("INSERT INTO banco (bco_id, bco_id2, bco_nome, bco_extrato, bco_img_src, grupo) VALUES ('" + bco.Id + "', '"+bco.Id2+"', '" + bco.Nome + "', '" + bco.Extrato + "', '" + bco.Imagem + "', '" + bco.Grupo + "')");
         }
@@ -37,7 +37,6 @@ namespace MyControl.dao
 
         public static DataView getSaldos()
         {
-
             return SqlTool.Consultar("select bco_id as banco, saldo from saldo_bco_view").DefaultView;
         }
 

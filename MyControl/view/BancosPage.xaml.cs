@@ -48,7 +48,9 @@ namespace MyControl.view
                 img.Source = banco.GetImagem();
 
                 // Cria o botão
-                Button btn = new Button();                
+                Button btn = new Button();
+                btn.Background = Brushes.White;
+                btn.BorderBrush = Brushes.White;
                 btn.Height = 100;
                 btn.Width = 100;
                 btn.Padding = new Thickness(0,0,0,0);

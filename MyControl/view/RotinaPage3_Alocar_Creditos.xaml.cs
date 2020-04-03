@@ -47,13 +47,17 @@ namespace MyControl.view
             }
         }
 
-        private void AtualizarTotal()
+        public void AtualizarTotal(string nomeConta = null)
         {
             // COloca o novo total
-            lbTotal.Content = RotinaDAO.getCreditosTotal();
+            lbTotal.Content = RotinaDAO.getCreditosTotal(nomeConta);
+
+            // Coloca a tooltip
+            lbTotal.ToolTip = RotinaDAO.getCreditosSaldos();
 
             // Valida se pode liberar o botão
-            if (Convert.ToDecimal(lbTotal.Content.ToString() == "" ? "0" : lbTotal.Content) == 0)
+            string totalGeral = RotinaDAO.getCreditosTotal();
+            if (Convert.ToDecimal(totalGeral == "" ? "0" : totalGeral) == 0)
                 btnNext.IsEnabled = true;
             else
                 btnNext.IsEnabled = false;
@@ -116,7 +120,7 @@ namespace MyControl.view
                 RotinaDAO.insertCredito(conta, valor);
 
                 // Atualiza
-                AtualizarTotal();
+                AtualizarTotal(conta);
                 AtualizarStackPanel();
 
                 // Limpa o txt
@@ -148,7 +152,7 @@ namespace MyControl.view
                 RotinaDAO.deleteCredito(conta, valor);
 
                 // Atualiza
-                AtualizarTotal();
+                AtualizarTotal(conta);
                 AtualizarStackPanel();
 
                 // Limpa o txt

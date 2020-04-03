@@ -1,0 +1,19 @@
+select alocados.grupo, (nao_alocados.valor - alocados.valor) saldo_distribuivel
+from 
+(
+	select grupo, sum(coalesce(valor,0)) as valor
+	from transacao_temp
+	inner join banco on bco = bco_id
+	where tipo='C' 
+	and codconta is null
+	group by grupo
+) as nao_alocados
+left join 
+(
+	select grupo, sum(coalesce(valor,0)) as valor
+	from transacao_temp inner join banco on bco = bco_id
+	where tipo='C' 
+	and codconta is not null
+	group by grupo
+) as alocados
+on nao_alocados.grupo = alocados.grupo
