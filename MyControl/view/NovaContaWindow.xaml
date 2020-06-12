@@ -13,10 +13,11 @@
         <TextBox x:Name="txNome" HorizontalAlignment="Left" FontSize="18" Height="40" Margin="30,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390"/>
         <TextBox x:Name="txDescricao" HorizontalAlignment="Left" FontSize="18" Height="41" Margin="30,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390"/>
         <TextBox x:Name="txPrioridade" HorizontalAlignment="Left" FontSize="18" Height="39" Margin="30,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="211"/>
-        <CheckBox x:Name="ckNotificar" Content="Esta conta DEVE ter débitos todos os meses! Notifique-me" FontSize="20" HorizontalAlignment="Left" Margin="30,366,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ckNotificar" Content="Esta conta DEVE ter débitos todos os meses! Notifique-me" FontSize="20" HorizontalAlignment="Left" Margin="30,353,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnAdd" Content="Adicionar" Margin="267,439,265,0" FontSize="18" VerticalAlignment="Top" Height="56" Foreground="#DDFFFFFF" Click="BtnAdd_Click"/>
         <Label Content="Grupo" FontSize="18" HorizontalAlignment="Left" Margin="267,232,0,0" VerticalAlignment="Top" Width="153"/>
         <TextBox x:Name="txGrupo" HorizontalAlignment="Left" FontSize="18" Height="39" Margin="267,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153"/>
+        <CheckBox x:Name="ckAulavel" Content="Esta conta é para transferencias (anulável nas análises)" FontSize="20" HorizontalAlignment="Left" Margin="30,388,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -56,6 +56,7 @@ namespace MyControl.view
             c.nome = txNome.Text;
             c.descricao = txDescricao.Text;
             c.prioridade = p;
+            c.anulavel = Convert.ToBoolean(ckAulavel.IsChecked);
             c.notificar = Convert.ToBoolean(ckNotificar.IsChecked);
             c.grupo = txGrupo.Text;
             ContaDAO.insertConta(c);

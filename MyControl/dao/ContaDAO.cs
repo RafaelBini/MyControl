@@ -60,7 +60,7 @@ namespace MyControl.dao
 
         internal static void insertConta(Conta c)
         {
-            string q = "insert into conta (nome, descricao, prioridade, notificar, ativo, adddatetime, grupo) values ('"+c.nome+"','"+c.descricao+"','"+c.prioridade+"', '"+c.notificar.ToString()+"', 'true', '"+DateTime.Now.ToString()+"', '"+c.grupo+"')";
+            string q = "insert into conta (nome, descricao, prioridade, notificar, ativo, adddatetime, grupo, anulavel) values ('"+c.nome+"','"+c.descricao+"','"+c.prioridade+"', '"+c.notificar.ToString()+"', 'true', '"+DateTime.Now.ToString()+"', '"+c.grupo+"', '"+c.anulavel.ToString()+"')";
             SqlTool.Executar(q);
         }
 

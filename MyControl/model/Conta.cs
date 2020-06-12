@@ -13,6 +13,7 @@ namespace MyControl.model
         public string descricao;
         public int prioridade;
         public bool ativo;
+        public bool anulavel;
         public string link;
         public string saldo;
         public bool notificar;
