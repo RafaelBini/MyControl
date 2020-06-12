@@ -148,7 +148,7 @@ namespace MyControl.view
                 dvDebitos.RowFilter = "grupo='" + meuGrupo + "'";
 
             }
-                
+
         }
 
         private void DgDebitos_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)

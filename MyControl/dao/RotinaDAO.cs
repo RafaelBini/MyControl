@@ -37,16 +37,18 @@ namespace MyControl.dao
                                     "order by saldo desc").DefaultView;
         }
 
-        public static string getCreditosTotal(string nomeConta=null)
+        public static string getCreditosTotal(string nomeConta = null)
         {
-            string q = "";
+            string q = "select sum(saldo) from saldos_temp_grupo";
 
             if (nomeConta != null)
-                q = "select saldo from saldos_temp_grupo where grupo = (select grupo from conta where nome = '"+ nomeConta + "')";
-            else
-                q = "select sum(saldo) from saldos_temp_grupo";
+                q = "select saldo from saldos_temp_grupo where grupo = (select grupo from conta where nome = '" + nomeConta + "')";
 
-            return SqlTool.Consultar(q).Rows[0][0].ToString();
+            DataTable dt = SqlTool.Consultar(q);
+            if (dt.Rows.Count <= 0)
+                return "0";
+
+            return dt.Rows[0][0].ToString();
         }
 
         public static string getCreditosSaldos()
