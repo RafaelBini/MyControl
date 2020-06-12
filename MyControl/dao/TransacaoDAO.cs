@@ -13,10 +13,10 @@ namespace MyControl.dao
             DateTime agora = DateTime.Now;
 
             string q1 = "insert into transacao (descricao,valor,codconta,datapgto,tipo,adddatetime,metodoentrada,conta) " +
-                        "values ('Transferência entre contas MyControl (cod "+ agora.ToString("yyyyMMddHHmmss")+")', '-"+ valor.Replace(",",".") +"', (select codconta from conta where nome='"+contaDoadora+"'), '"+DateTime.Today.ToString()+ "', 'D', '" + agora.ToString() + "', 'C# MyC', '" + contaDoadora + "'); ";
+                        "values ('Transferência entre contas MyControl (cod "+ agora.ToString("yyyyMMddHHmmss")+")', '-"+ valor.Replace(",",".") +"', (select codconta from conta where nome='"+contaDoadora+"'), '"+DateTime.Today.ToString()+ "', 'T', '" + agora.ToString() + "', 'C# MyC', '" + contaDoadora + "'); ";
 
             string q2 = "insert into transacao (descricao,valor,codconta,datapgto,tipo,adddatetime,metodoentrada,conta) " +
-                        "values ('Transferência entre contas MyControl (cod " + agora.ToString("yyyyMMddHHmmss") + ")', '" + valor.Replace(",", ".") + "', (select codconta from conta where nome='" + contaRecebedora + "'), '" + DateTime.Today.ToString() + "', 'C', '" + agora.ToString() + "', 'C# MyC', '" + contaRecebedora + "'); ";
+                        "values ('Transferência entre contas MyControl (cod " + agora.ToString("yyyyMMddHHmmss") + ")', '" + valor.Replace(",", ".") + "', (select codconta from conta where nome='" + contaRecebedora + "'), '" + DateTime.Today.ToString() + "', 'T', '" + agora.ToString() + "', 'C# MyC', '" + contaRecebedora + "'); ";
 
             SqlTool.Executar(q1 + q2);
         }
