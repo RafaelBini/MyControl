@@ -122,7 +122,7 @@ namespace MyControl.dao
         {
             try
             {
-                return SqlTool.Consultar("select round(avg(valor),2) as media_creditos from(select codconta, to_char(datapgto, 'yyyy/MM'), sum(valor) as valor from transacao where tipo = 'C' group by codconta, to_char(datapgto, 'yyyy/MM')) as soma_mes_conta where codconta = (select codconta from conta where nome='" + conta + "') group by codconta").Rows[0][0].ToString();
+                return SqlTool.Consultar("SELECT round(sum(valor) /(select ((CURRENT_DATE - (select min(datapgto) from transacao where codconta = (select codconta from conta where nome='" + conta + "'))) / 30)), 2) FROM transacao WHERE tipo = 'C'AND codconta = (select codconta from conta where nome='" + conta + "')").Rows[0][0].ToString();
             }
             catch
             {
@@ -249,7 +249,7 @@ namespace MyControl.dao
         {
             try
             {
-                string q = "select round(avg(valor),2) as media_debitos from(select codconta, to_char(datapgto, 'yyyy/MM'), sum(valor) as valor from transacao where tipo = 'D' group by codconta, to_char(datapgto, 'yyyy/MM')) as soma_mes_conta where codconta = (select codconta from conta where nome='" + conta + "') group by codconta";
+                string q = "SELECT round(sum(valor) /(select ((CURRENT_DATE - (select min(datapgto) from transacao where codconta = (select codconta from conta where nome='" + conta + "'))) / 30) -1), 2) FROM transacao WHERE tipo = 'D'AND codconta = (select codconta from conta where nome='" + conta+"')";
                 return Math.Abs(Convert.ToDouble(SqlTool.Consultar(q).Rows[0][0])).ToString() == "" ? "0.0" : Math.Abs(Convert.ToDouble(SqlTool.Consultar(q).Rows[0][0])).ToString();
             }
             catch
