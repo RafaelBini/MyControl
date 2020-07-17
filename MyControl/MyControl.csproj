@@ -150,6 +150,9 @@
     <Compile Include="view\DividirDebitoWindow.xaml.cs">
       <DependentUpon>DividirDebitoWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="view\InserirManualmente.xaml.cs">
+      <DependentUpon>InserirManualmente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\NovaContaWindow.xaml.cs">
       <DependentUpon>NovaContaWindow.xaml</DependentUpon>
     </Compile>
@@ -178,6 +181,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="view\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\InserirManualmente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

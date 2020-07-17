@@ -60,7 +60,31 @@ namespace MyControl.view
 
         }
 
-        private void AtualizarDg()
+        private void InserirManualmente(object sender, RoutedEventArgs e)
+        {
+            // Se não existe banco selecionado, encerra
+            if (bancoSelecionado == null)
+                return;
+
+            // Verifica se o extrato do banco já foi importado
+            if (RotinaDAO.foiImportado(bancoSelecionado))
+            {
+                // Confirma a substituiçao
+                if (MessageBox.Show("Deseja substituir os valores já importados?", "Atenção", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    // Deleta os registros existentes
+                    RotinaDAO.deleteExtrato(bancoSelecionado);
+
+                    // Atualiza a grid
+                    AtualizarDg();
+                }
+
+            }
+            view.InserirManualmente ViewInserirManualmente = new InserirManualmente(bancoSelecionado, this);
+            ViewInserirManualmente.Show();
+        }
+
+        public void AtualizarDg()
         {
             dgImportacoes.ItemsSource = RotinaDAO.getBancosImportados();
         }
@@ -124,7 +148,7 @@ namespace MyControl.view
             if (RotinaDAO.foiImportado(bancoSelecionado))
             {
                 // Confirma a substituiçao
-                if (MessageBox.Show("Certeza que deseja substituir o extrato já importado?","Atenção - Extrato já importado", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Deseja substituir os já importados?","Atenção", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     // Deleta os registros existentes
                     RotinaDAO.deleteExtrato(bancoSelecionado);
@@ -132,11 +156,7 @@ namespace MyControl.view
                     // Atualiza a grid
                     AtualizarDg();
                 }
-                else
-                {
-                    return;
-                }
-                    
+
             }
 
             // Abre a dialogo para escolha de arquivo

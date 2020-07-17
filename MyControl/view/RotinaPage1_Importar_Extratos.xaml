@@ -33,5 +33,8 @@
         <Label Content="Importar Extratos" Padding="3,0,0,0" HorizontalAlignment="Left" Margin="81,13,0,0" VerticalAlignment="Top" Width="183" Height="30" FontSize="24" FontFamily="Calibri"/>
         <Label x:Name="lbAnoMes" Content="mes" Padding="3,0,0,0" HorizontalAlignment="Left" Margin="284,13,0,0" VerticalAlignment="Top" Width="108" Height="30" FontSize="24" FontFamily="Calibri"/>
 
+        <Button Content="Inserir Manualmente" Foreground="White" Click="InserirManualmente" HorizontalAlignment="Center" Padding="0,0,0,0" Margin="0,215,0,0"  Width="186" Height="28" Grid.Row="1" VerticalAlignment="Top">
+        </Button>
+
     </Grid>
 </Page>

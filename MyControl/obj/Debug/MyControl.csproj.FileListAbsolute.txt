@@ -94,3 +94,5 @@ C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\D
 C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\view\ContasPage.baml
 C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\view\NovaContaWindow.g.cs
 C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\view\NovaContaWindow.baml
+C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\view\InserirManualmente.g.cs
+C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\view\InserirManualmente.baml

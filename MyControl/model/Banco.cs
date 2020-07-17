@@ -8,7 +8,7 @@ using System.Windows.Media.Imaging;
 
 namespace MyControl.model
 {
-    class Banco
+    public class Banco
     {
         public String Id;
         public int Id2;

@@ -227,6 +227,24 @@ namespace MyControl.dao
             SqlTool.Executar(q);
         }
 
+        public static void insertTransacaoTemp(string bco, string descricao, double valor, string data, string tipo)
+        {
+            valor = tipo == "D" ? Math.Abs(valor) * -1 : Math.Abs(valor);
+
+            string transacao_temp_insert = "INSERT INTO transacao_temp (datapgto,valor,tipo,descricaobco2,dctobco,bco,adddatetime,metodoentrada) VALUES ";
+            transacao_temp_insert +=
+                    "('" + data + "', " +
+                    "'" + valor.ToString().Replace(",", ".").Trim() + "', " +
+                    "'" + tipo + "', " +
+                    "'" + descricao + "', " +
+                    "''," +
+                    "'" + bco + "'," +
+                    "'" + DateTime.Now.ToString() + "'," +
+                    "'C# Manualmente');";
+
+            SqlTool.Executar(transacao_temp_insert);
+        }
+
         public static bool isContaDeBoa(string conta)
         {
             try
@@ -249,7 +267,7 @@ namespace MyControl.dao
         {
             try
             {
-                string q = "SELECT round(sum(valor) /(select ((CURRENT_DATE - (select min(datapgto) from transacao where codconta = (select codconta from conta where nome='" + conta + "'))) / 30) -1), 2) FROM transacao WHERE tipo = 'D'AND codconta = (select codconta from conta where nome='" + conta+"')";
+                string q = "SELECT round(sum(valor) /(select ((CURRENT_DATE - (select min(datapgto) from transacao where codconta = (select codconta from conta where nome='" + conta + "'))) / 30) -2), 2) FROM transacao WHERE tipo = 'D'AND codconta = (select codconta from conta where nome='" + conta+"')";
                 return Math.Abs(Convert.ToDouble(SqlTool.Consultar(q).Rows[0][0])).ToString() == "" ? "0.0" : Math.Abs(Convert.ToDouble(SqlTool.Consultar(q).Rows[0][0])).ToString();
             }
             catch
