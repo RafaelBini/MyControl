@@ -35,6 +35,7 @@ namespace MyControl.view
         {
             dgSaldoBcos.ItemsSource = RotinaDAO.getSaldoBancos();
             dgSaldoContas.ItemsSource = RotinaDAO.getSaldoContas();
+            LbTotal.Content = RotinaDAO.getTotalBancos();
         }
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)

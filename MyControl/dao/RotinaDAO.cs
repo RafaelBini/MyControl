@@ -37,6 +37,12 @@ namespace MyControl.dao
                                     "order by saldo desc").DefaultView;
         }
 
+        internal static String getTotalBancos()
+        {
+            return SqlTool.Consultar("select sum(saldo) " +
+                        "from saldo_bco_preview_view ").DefaultView[0][0].ToString();
+        }
+
         public static string getCreditosTotal(string nomeConta = null)
         {
             string q = "select sum(saldo) from saldos_temp_grupo";

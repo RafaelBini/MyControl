@@ -14,7 +14,10 @@
             <ColumnDefinition Width="223*"/>
             <ColumnDefinition Width="577*"/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="gBancos" Grid.Column="1" Margin="15,15,15,15" Background="#FFE7E7E7"/>
+        <Grid x:Name="gBancos" Grid.Column="1" Margin="15,15,15,15" Background="#FFE7E7E7">
+
+        </Grid>
+        <CheckBox Content="Mostrar inativos" Name="MostrarInativos" HorizontalAlignment="Left" Margin="31.333,27,0,0" VerticalAlignment="Top" Click="MostrarInativos_Click" Grid.Column="1" FontSize="20" />
         <Grid Margin="10,10,9.667,15" Background="#FF00B0F0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -44,6 +47,8 @@
             <Label Content="Bank ID 2" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="18,219,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" Height="18" Width="58"/>
             <Label Content="Grupo" Padding="0,0,0,0" HorizontalAlignment="Left" Margin="83,219,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" Height="18" Width="65"/>
             <TextBox x:Name="txGrupo" Height="23" Margin="81,236,52.667,0" Padding="3,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White"/>
+            <Button Content="Novo" HorizontalAlignment="Right" Margin="0,11,9.667,0" VerticalAlignment="Top" Width="112" Background="White" BorderBrush="{x:Null}" Foreground="#DD1032AF" Click="Button_Click"/>
+            <Button Content="Desativar" Name="BtnDesativar" HorizontalAlignment="Left" Margin="23,383,0,0" VerticalAlignment="Top" Width="170" Background="#FFFF8A8A" BorderBrush="{x:Null}" Click="BtnDesativar_Click"/>
         </Grid>
 
     </Grid>

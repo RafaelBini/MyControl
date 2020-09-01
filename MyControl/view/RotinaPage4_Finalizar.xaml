@@ -14,7 +14,7 @@
             <ColumnDefinition Width="397*"/>
             <ColumnDefinition Width="403*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dgSaldoBcos" ColumnWidth="*" Margin="60,73,60,80" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True"/>
+        <DataGrid x:Name="dgSaldoBcos" ColumnWidth="*" Margin="60,73,60.333,121" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True"/>
         <DataGrid x:Name="dgSaldoContas" ColumnWidth="*" Margin="60,73,60,80" Grid.Column="1" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" IsReadOnly="True"/>
 
         <Button x:Name="btnFinalizar" Content="Finalizar" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,60,31" VerticalAlignment="Bottom" Width="78" Foreground="#DDFFFFFF" IsDefault="True" IsEnabled="False" Padding="0" Click="BtnFinalizar_Click" />
@@ -22,6 +22,8 @@
         <CheckBox x:Name="ckBancos" Content="Os saldos estão de acordo com os reais" HorizontalAlignment="Left" Margin="60,0,0,40" VerticalAlignment="Bottom" Click="CheckBox_Click" FontSize="16"/>
         <Label Content="Saldos das Contas no MyControl" Grid.Column="1" HorizontalAlignment="Left" Margin="59.667,31,0,0" VerticalAlignment="Top" Width="283" FontSize="16"/>
         <Label Content="Saldos das Contas Bancárias" Grid.Column="0" HorizontalAlignment="Left" Margin="59.667,31,0,0" VerticalAlignment="Top" Width="283" FontSize="16"/>
+        <Label Content="20000" Name="LbTotal" Margin="138,0,60.333,80" VerticalAlignment="Bottom" Height="36" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="14" BorderBrush="#FF878787" Background="WhiteSmoke" FontWeight="Bold"/>
+        <Label Content="Total" Margin="60,0,0,80" VerticalAlignment="Bottom" Height="36" VerticalContentAlignment="Center" FontSize="14" BorderBrush="#FF878787" Padding="20,5,5,5" Background="WhiteSmoke" HorizontalAlignment="Left" Width="73" FontWeight="Bold"/>
 
     </Grid>
 </Page>

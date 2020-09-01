@@ -156,6 +156,9 @@
     <Compile Include="view\NovaContaWindow.xaml.cs">
       <DependentUpon>NovaContaWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="view\NovoBanco.xaml.cs">
+      <DependentUpon>NovoBanco.xaml</DependentUpon>
+    </Compile>
     <Compile Include="view\RotinaPage1_Importar_Extratos.xaml.cs">
       <DependentUpon>RotinaPage1_Importar_Extratos.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="view\NovaContaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="view\NovoBanco.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

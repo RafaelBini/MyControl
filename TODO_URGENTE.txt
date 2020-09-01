@@ -1,3 +1,3 @@
 Fazer tela para criar novo banco
-
-
+Criar opção de desativar banco
+Colocar total no final da rotina

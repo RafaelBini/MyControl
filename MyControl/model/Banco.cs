@@ -16,8 +16,9 @@ namespace MyControl.model
         public String Extrato;
         public String Imagem;
         public String Grupo;
+        public Boolean Ativo;
 
-        public Banco(string bco_id, int bco_id2, string bco_nome, string bco_extrato, string bco_img_src, string grupo)
+        public Banco(string bco_id, int bco_id2, string bco_nome, string bco_extrato, string bco_img_src, string grupo, Boolean ativo)
         {
             this.Id = bco_id;
             this.Id2 = bco_id2;
@@ -25,6 +26,7 @@ namespace MyControl.model
             this.Extrato = bco_extrato;
             this.Imagem = bco_img_src;
             this.Grupo = grupo;
+            this.Ativo = ativo;
         }
 
         public BitmapImage GetImagem()

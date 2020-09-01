@@ -25,6 +25,7 @@ namespace MyControl.view
     /// </summary>
     public partial class BancosPage : Page
     {
+
         public BancosPage()
         {
             InitializeComponent();
@@ -32,7 +33,7 @@ namespace MyControl.view
 
         }
 
-        private void AtualizarGrid()
+        public void AtualizarGrid()
         {
             // Reseta grid
             gBancos.Children.Clear();
@@ -43,6 +44,12 @@ namespace MyControl.view
             int c=0, l = 0, i = 0;
             foreach(Banco banco in BancoDAO.getBancos())
             {
+                // Verifica se o banco foi desativado
+                if (!banco.Ativo && MostrarInativos.IsChecked == false)
+                {
+                    continue;
+                }
+
                 // Cria imagem                
                 Image img = new Image();
                 img.Source = banco.GetImagem();
@@ -56,6 +63,10 @@ namespace MyControl.view
                 btn.Padding = new Thickness(0,0,0,0);
                 btn.Content = img;
                 btn.Click += Btn_Click;
+                if (!banco.Ativo)
+                {
+                    btn.Opacity = 0.2;
+                }
                 void Btn_Click(object sender, RoutedEventArgs e)
                 {
                     txCodigo.Text = banco.Id;
@@ -64,6 +75,17 @@ namespace MyControl.view
                     txImg.Text = banco.Imagem;
                     cbExtrato.Text = banco.Extrato;
                     txGrupo.Text = banco.Grupo;
+                    if (banco.Ativo)
+                    {
+                        BtnDesativar.Content = "Desativar";
+                        BtnDesativar.Background = Brushes.Red;
+                    }
+                    else
+                    {
+                        BtnDesativar.Content = "Ativar";
+                        BtnDesativar.Background = Brushes.LawnGreen;
+                    }
+                    
                 }
 
                 // Se é o primeiro botão a ser criado, seleciona-o
@@ -121,7 +143,7 @@ namespace MyControl.view
 
         private void BtnSalvar_Click(object sender, RoutedEventArgs e)
         {
-            Banco banco = new Banco(txCodigo.Text,Convert.ToInt32(txBcoId2.Text), txNome.Text,cbExtrato.Text,txImg.Text, txGrupo.Text);
+            Banco banco = new Banco(txCodigo.Text,Convert.ToInt32(txBcoId2.Text), txNome.Text,cbExtrato.Text,txImg.Text, txGrupo.Text, true);
             BancoDAO.setBanco(banco);
             AtualizarGrid();
         }
@@ -139,5 +161,23 @@ namespace MyControl.view
             BancoDAO.deletar(txCodigo.Text);
             AtualizarGrid();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new NovoBanco(this).Show();
+        }
+
+        private void BtnDesativar_Click(object sender, RoutedEventArgs e)
+        {
+            BancoDAO.toggleAtivar(txCodigo.Text);
+            AtualizarGrid();
+        }
+
+        private void MostrarInativos_Click(object sender, RoutedEventArgs e)
+        {
+            AtualizarGrid();
+        }
+
+
     }
 }
