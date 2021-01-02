@@ -39,10 +39,13 @@ namespace MyControl
             //new view.RotinaPage4_Finalizar().inserirFirebase();
 
             // Seta a variavel de ambiente para o caminho da chave em json
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\mycontrol-fca25-7b9cd2ec9c39.json");
+            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", @"D:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\mycontrol-fca25-7b9cd2ec9c39.json");
 
             // Instancia o db do FireStore
             GlobalVars.db = FirestoreDb.Create("mycontrol-fca25");
+
+            // Salva um Backup do banco de dados no google drive
+            ConnectionFactory.saveBackup();
         }
 
         public Storyboard getAnimation(String AnimationKey)

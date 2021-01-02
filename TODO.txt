@@ -3,6 +3,5 @@
 - Criar Estatisticas
 - Criar opção de editar detalhes das contas como "Obrigatória", "Prioridade" e etc
 - Criar visualização de histório de transações de cada conta
-- Arrumar calculo da média
 - Esconder saldo e só mostrar quando solicitado
 - Padronizar todos os valores no formato brasileiro

@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\
+C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\obj\Debug\
 MyControl
 none
 false
 DEBUG;TRACE
-D:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\App.xaml
+C:\Users\rfabini\Google Drive\MySoftwares\C#\MyControl\MyControl\MyControl\App.xaml
 12-1282481318
-6-1961721436
+6543263782
 291056947637
-140866870758
+140-650045802
 view\BancosPage.xaml;view\ContasPage.xaml;view\DividirDebitoWindow.xaml;view\HomePage.xaml;view\InserirManualmente.xaml;view\MainWindow.xaml;view\NovaContaWindow.xaml;view\NovoBanco.xaml;view\RotinaPage1_Importar_Extratos.xaml;view\RotinaPage2_Alocar_Debitos.xaml;view\RotinaPage3_Alocar_Creditos.xaml;view\RotinaPage4_Finalizar.xaml;
 
 False
