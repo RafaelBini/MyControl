@@ -2,7 +2,4 @@ pg_dump -f "my-control".dump -h 127.0.0.1 -U postgres MyControl
 
 psql -d MEU_DB -f MEU_ARQUIVO.dump -U postgres
 
--- URL HEROKU
-
-postgres://sbmsvwbetwmlak:1d70b78a225adf95d26fe7498f4775aaadc51012ff2c878fef4549dfc5fddd9e@ec2-54-166-114-48.compute-1.amazonaws.com:5432/d35r6qtpuj5ddf
 
